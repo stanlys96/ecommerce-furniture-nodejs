@@ -1,4 +1,4 @@
-import { pool } from "../database/db";
+const pool = require("../database/db");
 
 class Product {
   static async getAllProducts() {
@@ -11,4 +11,4 @@ class Product {
   }
 }
 
-export default Product;
+module.exports = Product;

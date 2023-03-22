@@ -1,5 +1,5 @@
 let env = process.env.NODE_ENV;
-import "dotenv/config";
+require("dotenv").config();
 
 module.exports = {
   production: {

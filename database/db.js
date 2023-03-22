@@ -1,6 +1,5 @@
-import pg from "pg";
-import "dotenv/config";
-const Pool = pg.Pool;
+const Pool = require("pg").Pool;
+require("dotenv").config();
 
 const devConfig = {
   connectionString: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE}`,
@@ -14,4 +13,5 @@ const proConfig = {
   },
 };
 
-export const pool = new Pool(proConfig);
+const pool = new Pool(proConfig);
+module.exports = pool;
