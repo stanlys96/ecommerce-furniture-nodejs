@@ -3,7 +3,6 @@ require("dotenv").config();
 const cors = require("cors");
 const router = require("./routes");
 
-// walao
 const app = express();
 const PORT = process.env.PORT || 3000;
 
