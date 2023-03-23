@@ -23,7 +23,7 @@ class AccountController {
     try {
       const data = await Account.login(req.body);
       if (data.msg !== "success") {
-        res.status(501).json(data);
+        res.status(400).json(data);
       } else {
         res.status(200).json(data);
       }
