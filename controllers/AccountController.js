@@ -31,6 +31,19 @@ class AccountController {
       console.log(e);
     }
   }
+
+  static async verify(req, res, next) {
+    try {
+      const data = await Account.verify(req.body);
+      if (data) {
+        res.status(200).json({ msg: "Success", ...data });
+      } else {
+        res.status(404).json({ msg: "Token is noob" });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 module.exports = AccountController;

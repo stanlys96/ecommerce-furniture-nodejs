@@ -1,13 +1,23 @@
 const dayjs = require("dayjs");
 const pool = require("../database/db");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt");
-const { generateToken } = require("../helpers/jwt");
+const { generateToken, verifyToken } = require("../helpers/jwt");
 
 class Account {
   static async getAllAccounts() {
     try {
       const accounts = await pool.query("SELECT * FROM accounts");
       return accounts;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  static async verify(account) {
+    try {
+      const { token } = account;
+      const walao = verifyToken(token, process.env.SECRET);
+      return walao;
     } catch (e) {
       console.log(e);
     }
