@@ -1,4 +1,4 @@
-const Blog = require("../models/blog");
+const Blog = require('../../models/furniture/blog');
 
 class BlogController {
   static async getAllBlogs(req, res, next) {
