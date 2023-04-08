@@ -1,12 +1,12 @@
-const pool = require('../../database/db');
-const { hashPassword, comparePassword } = require('../../helpers/bcrypt');
-const { generateToken, verifyToken } = require('../../helpers/jwt');
-const dayjs = require('dayjs');
+const pool = require("../../database/db");
+const { hashPassword, comparePassword } = require("../../helpers/bcrypt");
+const { generateToken, verifyToken } = require("../../helpers/jwt");
+const dayjs = require("dayjs");
 
 class User {
   static async getAllUsers() {
     try {
-      const users = await pool.query('SELECT * FROM flutter_ecommerce.users');
+      const users = await pool.query("SELECT * FROM flutter_ecommerce.users");
       return users;
     } catch (e) {
       console.log(e);
@@ -27,15 +27,15 @@ class User {
     try {
       const { name, password, email } = account;
       const findUser = await pool.query(
-        'SELECT * FROM flutter_ecommerce.users WHERE email = $1',
+        "SELECT * FROM flutter_ecommerce.users WHERE email = $1",
         [email]
       );
       if (findUser.rowCount > 0) {
-        return { msg: 'email_exist' };
+        return { msg: "email_exist" };
       } else {
         const hashedPassword = hashPassword(password);
         const newUser = await pool.query(
-          'INSERT INTO users (name, password, email, created_on) VALUES($1, $2, $3, $4) RETURNING *;',
+          "INSERT INTO flutter_ecommerce.users (name, password, email, created_on) VALUES($1, $2, $3, $4) RETURNING *;",
           [name, hashedPassword, email, dayjs().format()]
         );
         return newUser;
@@ -49,7 +49,7 @@ class User {
     try {
       const { password, email } = account;
       const findUser = await pool.query(
-        'SELECT * FROM flutter_ecommerce.users WHERE email = $1',
+        "SELECT * FROM flutter_ecommerce.users WHERE email = $1",
         [email]
       );
       if (findUser.rowCount > 0) {
@@ -58,19 +58,19 @@ class User {
           findUser.rows[0].password
         );
         if (!passwordCorrect) {
-          return { msg: 'password_incorrect' };
+          return { msg: "password_incorrect" };
         }
         const token = generateToken(
           { email: findUser.rows[0].email },
           process.env.SECRET
         );
         return {
-          msg: 'success',
+          msg: "success",
           email: findUser.rows[0].email,
           token,
         };
       } else {
-        return { msg: 'email_not_found' };
+        return { msg: "email_not_found" };
       }
     } catch (e) {
       console.log(e);
