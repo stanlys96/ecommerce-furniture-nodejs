@@ -1,4 +1,4 @@
-const User = require('../../models/flutter-ecommerce/user');
+const User = require("../../models/flutter-ecommerce/user");
 
 class UserController {
   static async getAllUsers(req, res, next) {
@@ -14,7 +14,7 @@ class UserController {
     try {
       const data = await User.register(req.body);
       res.status(200).json(data.rows);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -22,8 +22,8 @@ class UserController {
   static async login(req, res, next) {
     try {
       const data = await User.login(req.body);
-      if (data.msg !== 'success') {
-        res.status(400).json(data);
+      if (data.msg !== "success") {
+        res.status(200).json(data);
       } else {
         res.status(200).json(data);
       }
@@ -36,9 +36,9 @@ class UserController {
     try {
       const data = await User.verify(req.body);
       if (data) {
-        res.status(200).json({ msg: 'Success', ...data });
+        res.status(200).json({ msg: "Success", ...data });
       } else {
-        res.status(404).json({ msg: 'Token is noob' });
+        res.status(404).json({ msg: "Token is noob" });
       }
     } catch (e) {
       console.log(e);
