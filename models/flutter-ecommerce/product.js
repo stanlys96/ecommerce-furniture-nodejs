@@ -4,7 +4,7 @@ class Product {
   static async getAllProducts() {
     try {
       const products = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products"
+        "SELECT * FROM flutter_ecommerce.products ORDER BY id ASC"
       );
       return products;
     } catch (e) {
@@ -15,7 +15,7 @@ class Product {
   static async getProductsByCategory({ category }) {
     try {
       const products = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products WHERE category = $1",
+        "SELECT * FROM flutter_ecommerce.products WHERE category = $1 ORDER BY id ASC",
         [category]
       );
       return products;
