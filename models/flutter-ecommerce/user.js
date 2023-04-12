@@ -68,6 +68,7 @@ class User {
           msg: "success",
           email: findUser.rows[0].email,
           token,
+          user_id: findUser.id,
         };
       } else {
         return { msg: "email_not_found" };
