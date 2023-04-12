@@ -4,7 +4,8 @@ class Favorite {
   static async getUserFavorites({ user_id }) {
     try {
       const favorites = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_favorite u ON p.id = u.product_id"
+        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_favorite u ON p.id = u.product_id WHERE u.user_id = $1",
+        [user_id]
       );
       return favorites;
     } catch (e) {
