@@ -28,7 +28,7 @@ class Favorite {
           "INSERT INTO flutter_ecommerce.user_favorite(user_id, product_id) VALUES($1, $2) RETURNING *;",
           [user_id, product_id]
         );
-        return addToFavorites.rows;
+        return {msg: "Success", data: addToFavorites.rows};
       }
     } catch (e) {
       console.log(e);
