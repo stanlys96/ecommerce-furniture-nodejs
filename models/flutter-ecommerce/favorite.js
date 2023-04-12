@@ -25,7 +25,7 @@ class Favorite {
         };
       } else {
         const addToFavorites = await pool.query(
-          "INSERT INTO flutter_ecommerce.user_favorite(user_id, product_id) VALUES($1, $2) RETURNING*;",
+          "INSERT INTO flutter_ecommerce.user_favorite(user_id, product_id) VALUES($1, $2) RETURNING *;",
           [user_id, product_id]
         );
         return addToFavorites.rows;
