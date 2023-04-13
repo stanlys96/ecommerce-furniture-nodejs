@@ -4,13 +4,13 @@ class ProductController {
   static async getAllProducts(req, res, next) {
     try {
       const data = await Product.getAllProducts();
-      let message = "";
+      let msg = "";
       if (data.rows.length > 0) {
-        message = "success";
+        msg = "success";
       } else {
-        message = "no data";
+        msg = "no data";
       }
-      res.status(200).json({ message, data: data.rows });
+      res.status(200).json({ msg, data: data.rows });
     } catch (e) {
       console.log(e);
     }
@@ -19,13 +19,13 @@ class ProductController {
   static async getProductsByCategory(req, res, next) {
     try {
       const data = await Product.getProductsByCategory(req.params);
-      let message = "";
+      let msg = "";
       if (data.rows.length > 0) {
-        message = "success";
+        msg = "success";
       } else {
-        message = "no data";
+        msg = "no data";
       }
-      res.status(200).json({ message, data: data.rows });
+      res.status(200).json({ msg, data: data.rows });
     } catch (e) {
       console.log(e);
     }
