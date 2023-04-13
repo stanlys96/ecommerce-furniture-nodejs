@@ -31,10 +31,9 @@ class Cart {
           if (userCartAmount + amount > productStock) {
             return { msg: "exceeds_stock" };
           } else {
-            const total = userCartAmount + amount;
             const addToCart = await pool.query(
-              "UPDATE flutter_ecommerce.user_cart SET amount = $1 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
-              [user_id, product_id, total]
+              "UPDATE flutter_ecommerce.user_cart SET amount = amount + $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+              [user_id, product_id, amount]
             );
             return { msg: "success", data: addToCart };
           }
