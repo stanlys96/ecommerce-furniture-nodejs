@@ -26,7 +26,7 @@ class Cart {
           [user_id, product_id]
         );
 
-        if (userHasProduct.length > 0) {
+        if (userHasProduct.rows.length > 0) {
           const userCartAmount = userHasProduct.rows[0].amount;
           if (userCartAmount + amount > productStock) {
             return { msg: "exceeds_stock" };
