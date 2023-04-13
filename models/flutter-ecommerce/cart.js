@@ -22,7 +22,7 @@ class Cart {
       if (productExists.rows.length > 0) {
         const productStock = productExists.rows[0].stock;
         const userHasProduct = await pool.query(
-          "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_cart u ON p.id = u.product_id WHERE u.user_id = $1 AND u.product_id = $2",
+          "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
 
@@ -33,7 +33,7 @@ class Cart {
           } else {
             const addToCart = await pool.query(
               "UPDATE flutter_ecommerce.user_cart SET amount = amount + $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
-              [user_id, product_id, amount]
+              [user_id, product_id, parseInt(amount)]
             );
             return { msg: "success", data: addToCart };
           }
