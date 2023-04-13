@@ -3,7 +3,7 @@ const Cart = require("../../models/flutter-ecommerce/cart");
 class CartController {
   static async getUserCart(req, res, next) {
     try {
-      const data = Cart.getUserCarts(req.params);
+      const data = await Cart.getUserCarts(req.params);
       let message = "";
       if (data.rows.length > 0) {
         message = "success";
@@ -18,7 +18,7 @@ class CartController {
 
   static async addToCart(req, res, next) {
     try {
-      const data = Cart.addToCart(req.body);
+      const data = await Cart.addToCart(req.body);
       res.status(200).json(data);
     } catch (e) {
       console.log(e);
