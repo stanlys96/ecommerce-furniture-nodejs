@@ -59,15 +59,16 @@ class Cart {
         "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
         [product_id]
       );
+      console.log("?????");
       if (productExists.rows.length > 0) {
         const productStock = productExists.rows[0].stock;
         const userHasProduct = await pool.query(
           "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
-
+        console.log("???");
         if (userHasProduct.rows.length > 0) {
-          const userCartAmount = userHasProduct.rows[0].amount;
+          console.log("WALAO???");
           if (parseInt(amount) > parseInt(productStock)) {
             return { msg: "exceeds_stock" };
           } else {
