@@ -4,7 +4,7 @@ class Cart {
   static async getUserCarts({ user_id }) {
     try {
       const cart = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_cart u ON p.id = u.product_id WHERE u.user_id = $1",
+        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_cart u ON p.id = u.product_id WHERE u.user_id = $1 ORDER BY u.id ASC",
         [user_id]
       );
       return cart;
@@ -59,16 +59,13 @@ class Cart {
         "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
         [product_id]
       );
-      console.log("?????");
       if (productExists.rows.length > 0) {
         const productStock = productExists.rows[0].stock;
         const userHasProduct = await pool.query(
           "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
-        console.log("???");
         if (userHasProduct.rows.length > 0) {
-          console.log("WALAO???");
           if (parseInt(amount) > parseInt(productStock)) {
             return { msg: "exceeds_stock" };
           } else {
@@ -84,6 +81,30 @@ class Cart {
             [user_id, product_id, amount]
           );
           return { msg: "success", data: updateCart.rows };
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  static async deleteCart({ user_id, product_id }) {
+    try {
+      const productExists = await pool.query(
+        "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
+        [product_id]
+      );
+      if (productExists.rows.length > 0) {
+        const userHasProduct = await pool.query(
+          "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
+          [user_id, product_id]
+        );
+        if (userHasProduct.rows.length > 0) {
+          const deleteCart = await pool.query(
+            "DELETE FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+            [user_id, product_id]
+          );
+          return { msg: "success", data: deleteCart.rows };
         }
       }
     } catch (e) {

@@ -6,7 +6,9 @@ const dayjs = require("dayjs");
 class User {
   static async getAllUsers() {
     try {
-      const users = await pool.query("SELECT * FROM flutter_ecommerce.users");
+      const users = await pool.query(
+        "SELECT * FROM flutter_ecommerce.users ORDER BY id ASC"
+      );
       return users;
     } catch (e) {
       console.log(e);
