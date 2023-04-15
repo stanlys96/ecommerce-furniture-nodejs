@@ -1,5 +1,8 @@
 const pool = require("../../database/db");
 const dayjs = require("dayjs");
+var utc = require("dayjs/plugin/utc");
+var timezone = require("dayjs/plugin/timezone");
+var advanced = require("dayjs/plugin/advancedFormat");
 
 class Order {
   static async getUserOrders({ user_id }) {
@@ -29,13 +32,16 @@ class Order {
     user_id,
   }) {
     try {
+      dayjs.extend(timezone);
+      dayjs.extend(utc);
+      dayjs.extend(advanced);
       const addOrder = await pool.query(
         "INSERT INTO flutter_ecommerce.user_order (order_number, tracking_number, status, order_date, shipping_address, payment_method, card_number, delivery_method, delivery_fee, discount, total_amount, products, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;",
         [
           order_number,
           tracking_number,
           status,
-          dayjs().tz("Asia/Jakarta").format("DD/MM/YYYY z"),
+          dayjs().tz("Asia/Jakarta").format(),
           shipping_address,
           payment_method,
           card_number,
