@@ -111,6 +111,18 @@ class Cart {
       console.log(e);
     }
   }
+
+  static async deleteAllCart({ user_id }) {
+    try {
+      const deleteAllCart = await pool.query(
+        "DELETE FROM flutter_ecommerce.user_cart WHERE user_id = $1 RETURNING *;",
+        [user_id]
+      );
+      return { msg: "success", data: deleteAllCart.rows };
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 module.exports = Cart;
