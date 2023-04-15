@@ -44,6 +44,7 @@ class User {
       }
     } catch (e) {
       console.log(e);
+      return { msg: "error", error: e };
     }
   }
 
