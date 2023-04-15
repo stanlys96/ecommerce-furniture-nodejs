@@ -53,6 +53,13 @@ class Order {
           user_id,
         ]
       );
+      const productsArray = JSON.parse(products);
+      for (const product of productsArray) {
+        await pool.query(
+          "UPDATE flutter_ecommerce.products SET stock = stock - $1 WHERE id = $2 RETURNING *;",
+          [product.amount, product.product_id]
+        );
+      }
       return { msg: "success", data: addOrder.rows };
     } catch (e) {
       console.log(e);

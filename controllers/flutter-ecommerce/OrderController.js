@@ -19,6 +19,7 @@ class OrderController {
   static async addOrder(req, res, next) {
     try {
       const data = await Order.addOrder(req.body);
+      console.log(data, "???");
       res.status(200).json(data);
     } catch (e) {
       console.log(e);
