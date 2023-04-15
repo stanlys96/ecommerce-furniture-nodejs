@@ -56,6 +56,7 @@ class Order {
       return { msg: "success", data: addOrder.rows };
     } catch (e) {
       console.log(e);
+      return { msg: "failed" };
     }
   }
 }
