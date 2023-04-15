@@ -40,7 +40,7 @@ class User {
           "INSERT INTO flutter_ecommerce.users (name, password, email, created_on) VALUES($1, $2, $3, $4) RETURNING *;",
           [name, hashedPassword, email, dayjs().format()]
         );
-        return newUser;
+        return { msg: "success", data: newUser };
       }
     } catch (e) {
       console.log(e);
