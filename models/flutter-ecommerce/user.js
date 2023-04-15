@@ -76,7 +76,7 @@ class User {
         return { msg: "email_not_found" };
       }
     } catch (e) {
-      console.log(e);
+      return { msg: "error", error: e };
     }
   }
 }

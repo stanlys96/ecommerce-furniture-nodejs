@@ -1,0 +1,94 @@
+{
+  "msg": "success",
+  "data": [
+    {
+      "id": 3,
+      "order_number": "bFK2uX8SJWoRbvz",
+      "tracking_number": "jbouTHI2k9myaO0",
+      "status": "delivered",
+      "order_date": "2023-04-15T11:50:14.000Z",
+      "shipping_address": "3 Newbridge Court, Chino Hills, CA 91709, United States",
+      "payment_method": "Mastercard",
+      "card_number": "3123 3123 3123 3947",
+      "delivery_method": "FedEx",
+      "delivery_fee": 15,
+      "discount": 0,
+      "total_amount": 393,
+      "products": [
+        {
+          "id": 24,
+          "name": "Evening Dress",
+          "size": "M",
+          "color": "Blue",
+          "price": "15",
+          "stock": 25,
+          "amount": 5,
+          "rating": 5,
+          "reviews": 10,
+          "user_id": 6,
+          "category": "sale",
+          "discount": "3",
+          "subtitle": "Dorothy Perkins",
+          "image_url": "images/evening_dress.png",
+          "product_id": 2,
+          "description": "Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.",
+          "product_type": "clothes",
+          "image_detail_url": [
+            "images/evening_dress.png",
+            "images/evening_dress.png",
+            "images/evening_dress.png"
+          ]
+        },
+        {
+          "id": 25,
+          "name": "Sport Dress",
+          "size": "M",
+          "color": "Blue",
+          "price": "22",
+          "stock": 30,
+          "amount": 12,
+          "rating": 5,
+          "reviews": 12,
+          "user_id": 6,
+          "category": "sale",
+          "discount": "3",
+          "subtitle": "Sitlly",
+          "image_url": "images/sport_dress.png",
+          "product_id": 3,
+          "description": "Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.",
+          "product_type": "clothes",
+          "image_detail_url": [
+            "images/sport_dress.png",
+            "images/sport_dress.png",
+            "images/sport_dress.png"
+          ]
+        },
+        {
+          "id": 26,
+          "name": "Cool Dress",
+          "size": "M",
+          "color": "Blue",
+          "price": "22",
+          "stock": 37,
+          "amount": 3,
+          "rating": 4,
+          "reviews": 8,
+          "user_id": 6,
+          "category": "new",
+          "discount": "3",
+          "subtitle": "Coolio",
+          "image_url": "images/cool_dress.png",
+          "product_id": 4,
+          "description": "Short dress in soft cotton jersey with decorative buttons down the front and a wide, frill-trimmed square neckline with concealed elastication. Elasticated seam under the bust and short puff sleeves with a small frill trim.",
+          "product_type": "clothes",
+          "image_detail_url": [
+            "images/cool_dress.png",
+            "images/cool_dress.png",
+            "images/cool_dress.png"
+          ]
+        }
+      ],
+      "user_id": 6
+    }
+  ]
+}
