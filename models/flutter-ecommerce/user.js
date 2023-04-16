@@ -72,6 +72,7 @@ class User {
           email: findUser.rows[0].email,
           token,
           user_id: findUser.rows[0].id,
+          name: findUser.rows[0].name,
         };
       } else {
         return { msg: "email_not_found" };
