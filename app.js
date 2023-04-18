@@ -5,7 +5,7 @@ const router = require("./routes");
 
 const corsOptions = {
   origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
   preflightContinue: false,
   optionsSuccessStatus: 200,
 };
