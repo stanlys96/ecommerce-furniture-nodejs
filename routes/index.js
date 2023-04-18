@@ -2,6 +2,8 @@ const express = require("express");
 const furnitureProductRoutes = require("./furniture/product");
 const furnitureAccountRoutes = require("./furniture/account");
 const furnitureBlogRoutes = require("./furniture/blog");
+const furnitureCartRoutes = require("./furniture/cart");
+
 const flutterEcommerceUserRoutes = require("./flutter-ecommerce/user");
 const flutterEcommerceProductRoutes = require("./flutter-ecommerce/product");
 const flutterEcommerceFavoritesRoutes = require("./flutter-ecommerce/favorite");
@@ -14,6 +16,7 @@ const router = express.Router();
 router.use("/furniture/products", furnitureProductRoutes);
 router.use("/furniture/account", furnitureAccountRoutes);
 router.use("/furniture/blog", furnitureBlogRoutes);
+router.use("/furniture/cart", furnitureCartRoutes);
 
 // Flutter Ecommerce
 router.use("/flutter-ecommerce/users", flutterEcommerceUserRoutes);
