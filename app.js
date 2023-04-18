@@ -4,9 +4,10 @@ const cors = require("cors");
 const router = require("./routes");
 
 const corsOptions = {
-  origin: "https://ecommerce-furniture-stanly.vercel.app",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
 };
 
 const app = express();
