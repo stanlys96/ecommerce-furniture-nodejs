@@ -4,7 +4,7 @@ const cors = require("cors");
 const router = require("./routes");
 
 const corsOptions = {
-  origin: "https://ecommerce-furniture-stanly.vercel.app/",
+  origin: "https://ecommerce-furniture-stanly.vercel.app",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
