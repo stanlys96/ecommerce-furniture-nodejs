@@ -4,7 +4,7 @@ const cors = require("cors");
 const router = require("./routes");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://ecommerce-furniture-stanly.vercel.app/",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
