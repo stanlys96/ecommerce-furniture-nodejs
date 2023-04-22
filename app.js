@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
       message: data.message,
       to_user: 49,
     });
-    console.log(addToChat, "<<< addToChat");
+    socket.emit("chat-added", data);
     socket.broadcast.emit("message-receive", data);
   });
 });
