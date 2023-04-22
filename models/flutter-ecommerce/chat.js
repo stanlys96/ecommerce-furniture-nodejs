@@ -5,7 +5,7 @@ class Chat {
   static async getNormalUserChat({ user_id }) {
     try {
       const chat = await pool.query(
-        "SELECT * FROM flutter_ecommerce.chat WHERE user_id = $1 ORDER BY message_sent DESC",
+        "SELECT * FROM flutter_ecommerce.chat WHERE user_id = $1 ORDER BY message_sent ASC",
         [user_id]
       );
       return { msg: "success", data: chat.rows };
