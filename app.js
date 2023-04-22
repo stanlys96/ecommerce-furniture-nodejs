@@ -27,19 +27,22 @@ const server = app.listen(PORT, () => {
 
 const io = require("socket.io")(server);
 
-const connectedUser = new Set();
 io.on("connection", (socket) => {
   console.log("Connected successfully!", socket.id);
   // io.emit("connected-user", connectedUser.length);
-  connectedUser.add(socket.id);
   socket.on("disconnect", () => {
     console.log("Disconnected!", socket.id);
-    connectedUser.delete(socket.id);
     // io.emit("connected-user".connectedUser.length);
   });
 
   socket.on("message", async (data) => {
-    await Chat.addToChat(data.sentByMe, data.message, 49);
+    console.log(data);
+    const addToChat = await Chat.addToChat({
+      user_id: data.sentByMe,
+      message: data.message,
+      to_user: 49,
+    });
+    console.log(addToChat, "<<< addToChat");
     socket.broadcast.emit("message-receive", data);
   });
 });
