@@ -5,7 +5,7 @@ class Chat {
   static async getNormalUserChat({ user_id }) {
     try {
       const chat = await pool.query(
-        "SELECT * FROM flutter_ecommerce.chat WHERE user_id = $1 ORDER BY message_sent DESC",
+        "SELECT * FROM chat WHERE user_id = $1 OR to_user = $1 ORDER BY message_sent DESC",
         [user_id]
       );
       return { msg: "success", data: chat.rows };
@@ -17,7 +17,7 @@ class Chat {
   static async addToChat({ user_id, message, to_user }) {
     try {
       const addChat = await pool.query(
-        "INSERT INTO flutter_ecommerce.chat (user_id, message, to_user, message_sent) VALUES($1, $2, $3, $4) RETURNING *;",
+        "INSERT INTO chat (user_id, message, to_user, message_sent) VALUES($1, $2, $3, $4) RETURNING *;",
         [user_id, message, to_user, dayjs().format()]
       );
       return { msg: "success", data: addChat.rows };

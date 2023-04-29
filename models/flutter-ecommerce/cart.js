@@ -4,7 +4,7 @@ class Cart {
   static async getUserCarts({ user_id }) {
     try {
       const cart = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_cart u ON p.id = u.product_id WHERE u.user_id = $1 ORDER BY u.id ASC",
+        "SELECT * FROM products p JOIN user_cart u ON p.id = u.product_id WHERE u.user_id = $1 ORDER BY u.id ASC",
         [user_id]
       );
       return cart;
@@ -16,13 +16,13 @@ class Cart {
   static async addToCart({ user_id, product_id, amount }) {
     try {
       const productExists = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
+        "SELECT * FROM products WHERE id = $1",
         [product_id]
       );
       if (productExists.rows.length > 0) {
         const productStock = productExists.rows[0].stock;
         const userHasProduct = await pool.query(
-          "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
+          "SELECT * FROM user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
 
@@ -35,14 +35,14 @@ class Cart {
             return { msg: "exceeds_stock" };
           } else {
             const addToCart = await pool.query(
-              "UPDATE flutter_ecommerce.user_cart SET amount = amount + $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+              "UPDATE user_cart SET amount = amount + $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
               [user_id, product_id, parseInt(amount)]
             );
             return { msg: "success", data: addToCart.rows };
           }
         } else {
           const addToCart = await pool.query(
-            "INSERT INTO flutter_ecommerce.user_cart (user_id, product_id, amount) VALUES ($1, $2, $3) RETURNING *;",
+            "INSERT INTO user_cart (user_id, product_id, amount) VALUES ($1, $2, $3) RETURNING *;",
             [user_id, product_id, amount]
           );
           return { msg: "success", data: addToCart.rows };
@@ -56,13 +56,13 @@ class Cart {
   static async updateCart({ user_id, product_id, amount }) {
     try {
       const productExists = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
+        "SELECT * FROM products WHERE id = $1",
         [product_id]
       );
       if (productExists.rows.length > 0) {
         const productStock = productExists.rows[0].stock;
         const userHasProduct = await pool.query(
-          "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
+          "SELECT * FROM user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
         if (userHasProduct.rows.length > 0) {
@@ -70,14 +70,14 @@ class Cart {
             return { msg: "exceeds_stock" };
           } else {
             const updateCart = await pool.query(
-              "UPDATE flutter_ecommerce.user_cart SET amount = $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+              "UPDATE user_cart SET amount = $3 WHERE user_id = $1 AND product_id = $2 RETURNING *;",
               [user_id, product_id, parseInt(amount)]
             );
             return { msg: "success", data: updateCart.rows };
           }
         } else {
           const updateCart = await pool.query(
-            "INSERT INTO flutter_ecommerce.user_cart (user_id, product_id, amount) VALUES ($1, $2, $3) RETURNING *;",
+            "INSERT INTO user_cart (user_id, product_id, amount) VALUES ($1, $2, $3) RETURNING *;",
             [user_id, product_id, amount]
           );
           return { msg: "success", data: updateCart.rows };
@@ -91,17 +91,17 @@ class Cart {
   static async deleteCart({ user_id, product_id }) {
     try {
       const productExists = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products WHERE id = $1",
+        "SELECT * FROM products WHERE id = $1",
         [product_id]
       );
       if (productExists.rows.length > 0) {
         const userHasProduct = await pool.query(
-          "SELECT * FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2",
+          "SELECT * FROM user_cart WHERE user_id = $1 AND product_id = $2",
           [user_id, product_id]
         );
         if (userHasProduct.rows.length > 0) {
           const deleteCart = await pool.query(
-            "DELETE FROM flutter_ecommerce.user_cart WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+            "DELETE FROM user_cart WHERE user_id = $1 AND product_id = $2 RETURNING *;",
             [user_id, product_id]
           );
           return { msg: "success", data: deleteCart.rows };
@@ -115,7 +115,7 @@ class Cart {
   static async deleteAllCart({ user_id }) {
     try {
       const deleteAllCart = await pool.query(
-        "DELETE FROM flutter_ecommerce.user_cart WHERE user_id = $1 RETURNING *;",
+        "DELETE FROM user_cart WHERE user_id = $1 RETURNING *;",
         [user_id]
       );
       return { msg: "success", data: deleteAllCart.rows };

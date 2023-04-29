@@ -4,7 +4,7 @@ class Favorite {
   static async getUserFavorites({ user_id }) {
     try {
       const favorites = await pool.query(
-        "SELECT * FROM flutter_ecommerce.products p JOIN flutter_ecommerce.user_favorite u ON p.id = u.product_id WHERE u.user_id = $1 ORDER BY u.id ASC",
+        "SELECT * FROM products p JOIN user_favorite u ON p.id = u.product_id WHERE u.user_id = $1 ORDER BY u.id ASC",
         [user_id]
       );
       return favorites;
@@ -16,7 +16,7 @@ class Favorite {
   static async addToFavorite({ user_id, product_id }) {
     try {
       const userHasProduct = await pool.query(
-        "SELECT * FROM flutter_ecommerce.user_favorite WHERE user_id = $1 AND product_id = $2",
+        "SELECT * FROM user_favorite WHERE user_id = $1 AND product_id = $2",
         [user_id, product_id]
       );
       if (userHasProduct.rowCount > 0) {
@@ -25,7 +25,7 @@ class Favorite {
         };
       } else {
         const addToFavorites = await pool.query(
-          "INSERT INTO flutter_ecommerce.user_favorite(user_id, product_id) VALUES($1, $2) RETURNING *;",
+          "INSERT INTO user_favorite(user_id, product_id) VALUES($1, $2) RETURNING *;",
           [user_id, product_id]
         );
         return { msg: "Success", data: addToFavorites.rows };
@@ -38,12 +38,12 @@ class Favorite {
   static async deleteFavorite({ user_id, product_id }) {
     try {
       const userHasProduct = await pool.query(
-        "SELECT * FROM flutter_ecommerce.user_favorite WHERE user_id = $1 AND product_id = $2",
+        "SELECT * FROM user_favorite WHERE user_id = $1 AND product_id = $2",
         [user_id, product_id]
       );
       if (userHasProduct.rowCount > 0) {
         const deleteQuery = await pool.query(
-          "DELETE FROM flutter_ecommerce.user_favorite WHERE user_id = $1 AND product_id = $2 RETURNING *;",
+          "DELETE FROM user_favorite WHERE user_id = $1 AND product_id = $2 RETURNING *;",
           [user_id, product_id]
         );
         return { msg: "Success", data: deleteQuery.rows };

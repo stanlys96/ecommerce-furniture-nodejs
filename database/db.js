@@ -2,7 +2,7 @@ const Pool = require("pg").Pool;
 require("dotenv").config();
 
 const devConfig = {
-  connectionString: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE}`,
+  connectionString: `postgresql://${process.env.DB_USERNAME_DEV}:${process.env.DB_PASSWORD_DEV}@${process.env.DB_HOST_DEV}:${process.env.DATABASE_PORT}/${process.env.DB_DATABASE_DEV}`,
 };
 
 const proConfig = {
@@ -13,5 +13,5 @@ const proConfig = {
   },
 };
 
-const pool = new Pool(proConfig);
+const pool = new Pool(devConfig);
 module.exports = pool;

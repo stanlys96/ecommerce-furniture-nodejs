@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
     const addToChat = await Chat.addToChat({
       user_id: data.sentByMe,
       message: data.message,
-      to_user: 49,
+      to_user: data.sendTo,
     });
     socket.emit("chat-added", data);
     socket.broadcast.emit("message-receive", data);

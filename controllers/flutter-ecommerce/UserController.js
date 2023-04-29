@@ -44,6 +44,15 @@ class UserController {
       console.log(e);
     }
   }
+
+  static async getAdminChats(req, res, next) {
+    try {
+      const data = await User.getAdminChats(req.params);
+      res.status(200).json(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 module.exports = UserController;
